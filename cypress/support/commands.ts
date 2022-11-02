@@ -1,21 +1,22 @@
 /// <reference types="cypress" />
 
 Cypress.Commands.add("loginAsUser", () => {
-  const email = "cypress.inviron.sampler.test@test.dev";
+  const email = "test@test.dev";
   const password = "fake-password";
   const args = { email, password };
   cy.session(args, () => {
     cy.visit("/");
 
-    cy.origin("hawxy.au.auth0.com", { args }, ({ email, password }) => {
-      cy.get("#username").type(email);
-      cy.get("button")
-        .contains(/^Continue$/)
-        .click();
-      cy.get("#password").type(password);
-      cy.get("button").contains("Continue").click();
-    });
-    cy.url().should("contain", "/sites");
+    cy.origin(
+      "https://config.auth0lab.com/",
+      { args },
+      ({ email, password }) => {
+        cy.get("#username").type(email);
+        cy.get("#password").type(password);
+
+      }
+    );
+    cy.url().should("contain", "/");
   });
 });
 
