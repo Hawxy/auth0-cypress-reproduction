@@ -1,9 +1,7 @@
 {
   "name": "auth-cypress-reproduction",
   "version": "0.0.0",
-
   "devDependencies": {
-   
     "@types/node": "^16.18.3",
     "cypress": "^10.11.0",
     "eslint": "^8.22.0",

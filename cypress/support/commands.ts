@@ -6,16 +6,18 @@ Cypress.Commands.add("loginAsUser", () => {
   const args = { email, password };
   cy.session(args, () => {
     cy.visit("/");
+    cy.get("#username").type(email);
+    cy.get("#password").type(password);
 
-    cy.origin(
-      "https://config.auth0lab.com/",
-      { args },
-      ({ email, password }) => {
-        cy.get("#username").type(email);
-        cy.get("#password").type(password);
+    // cy.origin(
+    //   "https://config.auth0lab.com/",
+    //   { args },
+    //   ({ email, password }) => {
+    //     cy.get("#username").type(email);
+    //     cy.get("#password").type(password);
 
-      }
-    );
+    //   }
+    // );
     cy.url().should("contain", "/");
   });
 });
