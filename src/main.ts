@@ -13,6 +13,7 @@ app.use(
     domain: "hawxy.au.auth0.com",
     client_id: "PdXlvzOvMXpV5gaSlcfKatCDmJFhAJal",
     redirect_uri: import.meta.env.VERCEL_URL ?? "http://127.0.0.1:5173/",
+    useRefreshTokens: true,
   })
 );
 
