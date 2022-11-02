@@ -5,19 +5,19 @@ Cypress.Commands.add("loginAsUser", () => {
   const password = "fake-password";
   const args = { email, password };
   cy.session(args, () => {
-    cy.visit("/");
-    cy.get("#username").type(email);
-    cy.get("#password").type(password);
-
-    // cy.origin(
-    //   "https://config.auth0lab.com/",
-    //   { args },
-    //   ({ email, password }) => {
-    //     cy.get("#username").type(email);
-    //     cy.get("#password").type(password);
-
-    //   }
-    // );
+    // base url is google.com and doing cross-site/cross-origin navigation to manage.auth0lab.com, which results in 302
+    // redirect to config.auth0lab.com
+    cy.visit('/')
+    cy.visit("https://manage.auth0lab.com/");
+    cy.origin(
+      "https://config.auth0lab.com/",
+      { args },
+      ({ email, password }) => {
+        cy.get("#username").type(email);
+        cy.get("#password").type(password);
+        cy.get("[type='submit'][value='default']").click()
+      }
+    );
     cy.url().should("contain", "/");
   });
 });
